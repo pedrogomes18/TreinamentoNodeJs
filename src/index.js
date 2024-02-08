@@ -1,6 +1,8 @@
 const express = require("express");
+const uuid = require("uuid");
 
 const app = express();
+app.use(express.json());
 
 /*
     Metodos HTTP
@@ -17,24 +19,58 @@ const app = express();
      * Request Body: Conteúudo na hora de criar ou editar um recurso. É o maldito JSON
 */
 
+const projects = [];
+
 //GET
-app.get("/projects", (resquest, response) => {
-  return response.json(["Projeto 1", "Projeto 2", "Projeto 3"]);
+app.get("/projects", (request, response) => {
+  return response.json(projects);
 });
 
 //POST
-app.post("/projects", (resquest, response) => {
-  return response.json(["Projeto 1", "Projeto 2", "Projeto 3", "Projeto 4"]);
+app.post("/projects", (request, response) => {
+  const { title, owner } = request.body;
+
+  const project = { id: uuid.v4(), title: title, owner: owner };
+
+  projects.push(project);
+
+  return response.json(project);
 });
 
 //PUT
-app.put("/projects/:id", (resquest, response) => {
-  return response.json(["Projeto 8", "Projeto 2", "Projeto 3", "Projeto 4"]);
+app.put("/projects/:id", (request, response) => {
+  const { id } = request.params;
+  const { title, owner } = request.body;
+
+  const projectIndex = projects.findIndex((project) => project.id == id);
+
+  if (projectIndex < 0) {
+    return response.status(404).json({ error: "Project not found" });
+  }
+
+  const project = {
+    id,
+    title,
+    owner,
+  };
+
+  projects[projectIndex] = project;
+  return response.json(project);
 });
 
 //DELETE
-app.delete("/projects/:id", (resquest, response) => {
-  return response.json(["Projeto 8", "Projeto 2", "Projeto 3"]);
+app.delete("/projects/:id", (request, response) => {
+  const { id } = request.params;
+
+  const projectIndex = projects.findIndex((project) => project.id == id);
+
+  if (projectIndex < 0) {
+    return response.status(404).json({ error: "Project not found" });
+  }
+
+  projects.splice(projectIndex, 1);
+
+  return response.status(204).send();
 });
 
 app.listen(3333, () => {
