@@ -10,6 +10,13 @@ const app = express();
      * PUT/PATCH - Alterar uma Informação
 */
 
+/*
+    Tipos de parâmetros
+     * Query Params: Filtros e Paginação
+     * Route Params: Identificar recursos (Atualizar/Deletar)
+     * Request Body: Conteúudo na hora de criar ou editar um recurso. É o maldito JSON
+*/
+
 //GET
 app.get("/projects", (resquest, response) => {
   return response.json(["Projeto 1", "Projeto 2", "Projeto 3"]);
