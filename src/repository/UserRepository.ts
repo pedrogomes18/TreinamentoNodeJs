@@ -28,18 +28,22 @@ class UserRepository {
     created_at,
     update_at,
   }: CreateUserDTO): User {
-    const currentTime = new Date();
     const user = new User({
       name,
       dataBirth,
       cpf,
       telephone,
-      created_at: currentTime,
-      update_at: currentTime,
+      created_at,
+      update_at,
     });
 
     this.users.push(user);
     return user;
+  }
+
+  public findByUserCpf(cpf: string): User | null {
+    const findUserById = this.users.find((user) => user.cpf === cpf);
+    return findUserById || null;
   }
 }
 
