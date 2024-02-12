@@ -4,7 +4,7 @@ interface CreatePiuDTO {
   idUser: string;
   text: string;
   created_at: Date;
-  update_at: string;
+  update_at: Date;
 }
 
 class PiuRepository {
@@ -19,9 +19,17 @@ class PiuRepository {
   }
 
   public create({ idUser, text, created_at, update_at }: CreatePiuDTO): Piu {
-    const piu = new Piu({ idUser, text, created_at, update_at });
+    const currentTime = new Date(); // Obtém a data e hora atuais
+    const piu = new Piu({
+      idUser,
+      text,
+      created_at: currentTime,
+      update_at: currentTime,
+    });
 
     this.pius.push(piu);
     return piu;
   }
 }
+
+export default PiuRepository;

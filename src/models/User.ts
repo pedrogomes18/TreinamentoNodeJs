@@ -7,7 +7,7 @@ class User {
   cpf: string;
   telephone: string;
   created_at: Date;
-  update_at: string;
+  update_at: Date;
 
   constructor({
     name,

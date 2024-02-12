@@ -5,7 +5,7 @@ class Piu {
   idUser: string;
   text: string;
   created_at: Date;
-  update_at: string;
+  update_at: Date;
 
   constructor({ idUser, text, created_at, update_at }: Omit<Piu, "id">) {
     this.id = uuidv4();
