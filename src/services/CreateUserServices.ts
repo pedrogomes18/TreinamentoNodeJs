@@ -6,8 +6,6 @@ interface Request {
   dataBirth: Date;
   cpf: string;
   telephone: string;
-  created_at: Date;
-  update_at: Date;
 }
 
 class CreateUserServices {
