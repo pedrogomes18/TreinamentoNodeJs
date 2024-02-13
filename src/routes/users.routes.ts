@@ -1,5 +1,6 @@
 import { Router } from "express";
 import UserRepository from "../repository/UserRepository";
+import GetUserAll from "../services/User/GetUserAllServices";
 import CreateUserServices from "../services/User/CreateUserServices";
 import GetUserById from "../services/User/GetUserByIdServices";
 import { parseISO } from "date-fns";
@@ -9,7 +10,8 @@ const userRepository = new UserRepository();
 
 //Pega todos Users
 userRouter.get("/getAll", (request, response) => {
-  const user = userRepository.allUser();
+  const getUserAll = new GetUserAll(userRepository);
+  const user = getUserAll.execute();
   return response.json(user);
 });
 
