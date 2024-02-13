@@ -15,12 +15,13 @@ class UserRepository {
   constructor() {
     this.users = [];
   }
-  //Pega todos os Users
+
+  // Pega todos os Users
   public allUser(): User[] {
     return this.users;
   }
 
-  //Cria os users
+  // Cria os users
   public create({
     name,
     dataBirth,
@@ -42,16 +43,42 @@ class UserRepository {
     return user;
   }
 
-  //Pega Usuários pelo ID
+  // Pega Usuários pelo ID
   public getUserById(idUser: string): User | null {
     const findUserById = this.users.find((user) => user.id === idUser);
     return findUserById || null;
   }
 
-  //Pega usuários pelo CPF
+  // Pega usuários pelo CPF
   public findByUserCpf(cpf: string): User | null {
     const findUserByCpf = this.users.find((user) => user.cpf === cpf);
     return findUserByCpf || null;
+  }
+
+  // Atualiza um usuário
+  public updateUser(
+    idUser: string,
+    newData: Partial<CreateUserDTO>
+  ): User | null {
+    const userToUpdate = this.getUserById(idUser);
+    if (!userToUpdate) {
+      return null;
+    }
+
+    // Removendo created_at para garantir que não seja atualizado
+    const { created_at, ...updateData } = newData;
+
+    // Atualizando update_at com a data e hora atual
+    const updatedUser = {
+      ...userToUpdate,
+      ...updateData,
+      update_at: new Date(),
+    };
+
+    const index = this.users.findIndex((user) => user.id === idUser);
+    this.users[index] = updatedUser;
+
+    return updatedUser;
   }
 }
 
