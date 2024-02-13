@@ -1,5 +1,5 @@
-import User from "../models/User";
-import UserRepository from "../repository/UserRepository";
+import User from "../../models/User";
+import UserRepository from "../../repository/UserRepository";
 
 interface Request {
   name: string;
@@ -18,10 +18,10 @@ class CreateUserServices {
   public execute({ name, dataBirth, cpf, telephone }: Request): User {
     const currentTime = new Date();
 
-    const findAppointmentInSameDate = this.userRepository.findByUserCpf(cpf);
+    const findUserInSameCpf = this.userRepository.findByUserCpf(cpf);
 
-    if (findAppointmentInSameDate) {
-      throw Error("This Appointment is already booked");
+    if (findUserInSameCpf) {
+      throw Error("This CPF is already registered");
     }
 
     const user = this.userRepository.create({

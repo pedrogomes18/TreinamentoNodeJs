@@ -15,11 +15,12 @@ class UserRepository {
   constructor() {
     this.users = [];
   }
-
+  //Pega todos os Users
   public allUser(): User[] {
     return this.users;
   }
 
+  //Cria os users
   public create({
     name,
     dataBirth,
@@ -41,9 +42,16 @@ class UserRepository {
     return user;
   }
 
-  public findByUserCpf(cpf: string): User | null {
-    const findUserById = this.users.find((user) => user.cpf === cpf);
+  //Pega Usuários pelo ID
+  public getUserById(idUser: string): User | null {
+    const findUserById = this.users.find((user) => user.id === idUser);
     return findUserById || null;
+  }
+
+  //Pega usuários pelo CPF
+  public findByUserCpf(cpf: string): User | null {
+    const findUserByCpf = this.users.find((user) => user.cpf === cpf);
+    return findUserByCpf || null;
   }
 }
 

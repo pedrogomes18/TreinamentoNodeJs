@@ -1,19 +1,36 @@
 import { Router } from "express";
 import UserRepository from "../repository/UserRepository";
-import CreateUserServices from "../services/CreateUserServices";
+import CreateUserServices from "../services/User/CreateUserServices";
+import GetUserById from "../services/User/GetUserByIdServices";
 import { parseISO } from "date-fns";
 
 const userRouter = Router();
 const userRepository = new UserRepository();
 
-//Get
-userRouter.get("/", (request, response) => {
+//Pega todos Users
+userRouter.get("/getAll", (request, response) => {
   const user = userRepository.allUser();
   return response.json(user);
 });
 
-//Post
-userRouter.post("/", (request, response) => {
+//Pega Usuário pelo ID
+userRouter.get("/getUser/:id", (request, response) => {
+  try {
+    const id = request.params.id;
+
+    const getUserById = new GetUserById(userRepository);
+
+    const user = getUserById.execute({
+      id,
+    });
+    return response.json(user);
+  } catch (err: any) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+//Cria Users
+userRouter.post("/create", (request, response) => {
   try {
     const { name, dataBirth, cpf, telephone } = request.body;
 
