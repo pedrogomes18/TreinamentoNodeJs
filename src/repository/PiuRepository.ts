@@ -35,6 +35,24 @@ class PiuRepository {
     const findPiuById = this.pius.find((piu) => piu.id === idPiu);
     return findPiuById || null;
   }
+
+  public updatePiu(idPiu: string, newText: string): Piu | null {
+    const piuToUpdate = this.getPiuById(idPiu);
+    if (!piuToUpdate) {
+      return null;
+    }
+
+    const updatedPiu = {
+      ...piuToUpdate,
+      text: newText,
+      update_at: new Date(),
+    };
+
+    const index = this.pius.findIndex((piu) => piu.id === idPiu);
+    this.pius[index] = updatedPiu;
+
+    return updatedPiu;
+  }
 }
 
 export default PiuRepository;
