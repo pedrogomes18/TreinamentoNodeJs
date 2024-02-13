@@ -78,6 +78,16 @@ class UserRepository {
 
     return updatedUser;
   }
+
+  // Deleta um usuário
+  public deleteUser(idUser: string): boolean {
+    const index = this.users.findIndex((user) => user.id === idUser);
+    if (index === -1) {
+      return false; // Usuário não encontrado
+    }
+    this.users.splice(index, 1);
+    return true; // Usuário deletado com sucesso
+  }
 }
 
 export default UserRepository;

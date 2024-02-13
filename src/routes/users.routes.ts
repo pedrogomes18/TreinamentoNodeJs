@@ -4,6 +4,7 @@ import GetUserAll from "../services/User/GetUserAllServices";
 import CreateUserServices from "../services/User/CreateUserServices";
 import GetUserById from "../services/User/GetUserByIdServices";
 import UpdateUser from "../services/User/UpdateUserServices";
+import DeleteUser from "../services/User/DeleteUserServiices";
 import { parseISO } from "date-fns";
 
 const userRouter = Router();
@@ -78,6 +79,20 @@ userRouter.put("/update/:id", (request, response) => {
     }
 
     return response.json(updatedUser);
+  } catch (err: any) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+// Deleta User
+userRouter.delete("/delete/:id", (request, response) => {
+  try {
+    const { id } = request.params;
+
+    const deleteUser = new DeleteUser(userRepository);
+    deleteUser.execute(id);
+
+    return response.json({ message: "User deleted successfully." });
   } catch (err: any) {
     return response.status(400).json({ error: err.message });
   }
