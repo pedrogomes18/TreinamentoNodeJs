@@ -3,6 +3,7 @@ import PiuRepository from "../repository/PiuRepository";
 import GetPiuAllServices from "../services/Piu/GetPiuAllServices";
 import CreatePiu from "../services/Piu/CreatePiuServices";
 import UpdatePiu from "../services/Piu/UpdatePiuServices";
+import DeletePiu from "../services/Piu/DeletePiuServices";
 import { userRepository } from "../routes/users.routes";
 
 const piusRouter = Router();
@@ -47,6 +48,20 @@ piusRouter.put("/update/:idPiu", (request, response) => {
     }
 
     return response.json(updatedPiu);
+  } catch (err: any) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+// Deleta o piu
+piusRouter.delete("/delete/:idPiu", (request, response) => {
+  try {
+    const { idPiu } = request.params;
+
+    const deletePiu = new DeletePiu(piuRepository);
+    deletePiu.execute(idPiu);
+
+    return response.status(204).send();
   } catch (err: any) {
     return response.status(400).json({ error: err.message });
   }

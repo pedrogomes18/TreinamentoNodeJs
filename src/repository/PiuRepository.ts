@@ -54,6 +54,15 @@ class PiuRepository {
     return updatedPiu;
   }
 
+  public deletePiu(idPiu: string): boolean {
+    const index = this.pius.findIndex((piu) => piu.id === idPiu);
+    if (index !== -1) {
+      this.pius.splice(index, 1);
+      return true; // Indicando que o Piu foi excluído com sucesso
+    }
+    return false; // Indicando que o Piu não foi encontrado para exclusão
+  }
+
   private formatDate(date: Date): string {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
