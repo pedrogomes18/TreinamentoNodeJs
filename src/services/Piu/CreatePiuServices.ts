@@ -1,13 +1,10 @@
 import Piu from "../../models/Piu";
-import { startOfHour } from "date-fns";
 import PiuRepository from "../../repository/PiuRepository";
 import UserRepository from "../../repository/UserRepository";
 
 interface Request {
   idUser: string;
   text: string;
-  created_at: Date;
-  update_at: Date;
 }
 
 class CreatePiu {
@@ -19,7 +16,7 @@ class CreatePiu {
     this.userRepository = userRepository;
   }
 
-  public execute({ idUser, text, created_at, update_at }: Request): Piu {
+  public execute({ idUser, text }: Request): Piu {
     const currentTime = new Date();
 
     if (!idUser || !text) {
@@ -27,7 +24,7 @@ class CreatePiu {
     }
 
     const user = this.userRepository.getUserById(idUser);
-    if (!user) {
+    if (user === null) {
       throw new Error("User not found.");
     }
 

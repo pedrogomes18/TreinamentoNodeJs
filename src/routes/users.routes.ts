@@ -6,7 +6,7 @@ import GetUserById from "../services/User/GetUserByIdServices";
 import { parseISO } from "date-fns";
 
 const userRouter = Router();
-const userRepository = new UserRepository();
+export const userRepository = new UserRepository();
 
 //Pega todos Users
 userRouter.get("/getAll", (request, response) => {
