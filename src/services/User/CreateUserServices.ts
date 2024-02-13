@@ -18,6 +18,11 @@ class CreateUserServices {
   public execute({ name, dataBirth, cpf, telephone }: Request): User {
     const currentTime = new Date();
 
+    // Verificar se algum campo está vazio
+    if (!name || !dataBirth || !cpf || !telephone) {
+      throw new Error("All fields must be filled.");
+    }
+
     const findUserInSameCpf = this.userRepository.findByUserCpf(cpf);
 
     if (findUserInSameCpf) {
