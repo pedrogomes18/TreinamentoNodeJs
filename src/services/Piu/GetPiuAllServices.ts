@@ -15,7 +15,6 @@ class GetPiuAll {
       return getAllPiu;
     } else {
       throw Error("Pius not Found");
-      return null;
     }
   }
 }

@@ -19,7 +19,6 @@ class GetPiuById {
       return findPiuById;
     } else {
       throw Error("Piu not Found");
-      return null;
     }
   }
 }

@@ -15,12 +15,10 @@ class UpdateUser {
 
   public execute({ idUser, newData }: Request): User | null {
     try {
-      // Verificar se o ID do usuário e os novos dados são fornecidos
       if (!idUser || !newData) {
         throw new Error("ID of the User and new data must be provided.");
       }
 
-      // Verificar se o novo CPF já está cadastrado em outro usuário
       if (newData.cpf) {
         const userWithSameCpf = this.userRepository.findByUserCpf(newData.cpf);
         if (userWithSameCpf && userWithSameCpf.id !== idUser) {
@@ -28,7 +26,6 @@ class UpdateUser {
         }
       }
 
-      // Atualizar o usuário
       const updatedUser = this.userRepository.updateUser(idUser, newData);
 
       if (!updatedUser) {

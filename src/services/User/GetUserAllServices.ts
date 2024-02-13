@@ -15,7 +15,6 @@ class GetUserAll {
       return getAllUser;
     } else {
       throw Error("Users not Found");
-      return null;
     }
   }
 }

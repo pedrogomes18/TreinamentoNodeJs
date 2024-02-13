@@ -65,10 +65,8 @@ class UserRepository {
       return null;
     }
 
-    // Removendo created_at para garantir que não seja atualizado
     const { created_at, ...updateData } = newData;
 
-    // Atualizando update_at com a data e hora atual
     const updatedUser = {
       ...userToUpdate,
       ...updateData,

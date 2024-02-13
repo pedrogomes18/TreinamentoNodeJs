@@ -19,7 +19,6 @@ class GetUserById {
       return findUserById;
     } else {
       throw Error("User not Found");
-      return null;
     }
   }
 }
