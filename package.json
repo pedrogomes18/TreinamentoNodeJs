@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts"
+    "dev:server": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "docs": "npx insomnia-documenter --output docs"
   },
   "dependencies": {
     "date-fns": "^3.3.1",
