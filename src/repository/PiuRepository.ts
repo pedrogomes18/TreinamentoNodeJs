@@ -19,7 +19,7 @@ class PiuRepository {
   }
 
   public create({ idUser, text, created_at, update_at }: CreatePiuDTO): Piu {
-    const currentTime = new Date(); // Obtém a data e hora atuais
+    const currentTime = new Date();
     const piu = new Piu({
       idUser,
       text,
@@ -29,6 +29,11 @@ class PiuRepository {
 
     this.pius.push(piu);
     return piu;
+  }
+
+  public getPiuById(idPiu: string): Piu | null {
+    const findPiuById = this.pius.find((piu) => piu.id === idPiu);
+    return findPiuById || null;
   }
 }
 
